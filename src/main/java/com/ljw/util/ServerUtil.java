@@ -4,5 +4,10 @@ public class ServerUtil {
 	/**
 	 * 编码格式
 	 */
-	public static final String _CODE = "UTF-8";
+	public static final String CODE_UTF_8 = "UTF-8";
+	
+	/**
+	 * 编码格式
+	 */
+	public static final String CODE_GBK = "GBK";
 }

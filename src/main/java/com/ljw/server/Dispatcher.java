@@ -3,6 +3,8 @@ package com.ljw.server;
 import java.io.IOException;
 import java.net.Socket;
 
+import com.ljw.server.controller.BaseServlet;
+import com.ljw.server.controller.JsonServlet;
 import com.ljw.util.CloseUtil;
 
 public class Dispatcher implements Runnable {
@@ -19,9 +21,6 @@ public class Dispatcher implements Runnable {
 		try {
 			this.request = new Request(client.getInputStream());
 			this.response = new Response(client.getOutputStream());
-			//TODO:cotroller操作
-			String json = "abc";
-			response.print(json);
 		} catch (IOException e) {
 			this.code = 500;
 		}
@@ -30,20 +29,22 @@ public class Dispatcher implements Runnable {
 
 	@Override
 	public void run() {
-		Servlet servlet = new Servlet();
-		servlet.service(request, response);
+		BaseServlet servlet = getServlet();
+		servlet.doGet(request, response);
 		try {
 			response.pushToCilent(code);// 推送结果
 
 		} catch (IOException e) {
 		}
 
-		try {
-			response.pushToCilent(500);// 推送结果
-		} catch (IOException e) {
-		}
+
 
 		CloseUtil.closeSocket(client);
+	}
+
+	private BaseServlet getServlet() {
+		
+		return new JsonServlet();
 	}
 
 }

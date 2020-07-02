@@ -94,12 +94,29 @@ public class Response {
 		default:
 			break;
 		}
+		toJson();
+//		toXml();
+	}
+
+	private void toJson() {
 		headInfo.append(CRLF);
 		// 2.响应头
 		headInfo.append("Server:lijinwu Server/0.0.1").append(CRLF);
 		headInfo.append("Date:").append(new Date()).append(CRLF);
 		// 读取正文类型，必填
-		headInfo.append("Content-type：text/html;charset=" + ServerUtil._CODE).append(CRLF);
+		headInfo.append("Content-type：application/json;charset=" + ServerUtil.CODE_GBK).append(CRLF);
+		// 读取正文长度，必填
+		headInfo.append("Content-Length:").append(len).append(CRLF);
+		headInfo.append(CRLF);// 添加空行
+	}
+
+	private void toXml() {
+		headInfo.append(CRLF);
+		// 2.响应头
+		headInfo.append("Server:lijinwu Server/0.0.1").append(CRLF);
+		headInfo.append("Date:").append(new Date()).append(CRLF);
+		// 读取正文类型，必填
+		headInfo.append("Content-type：text/html;charset=" + ServerUtil.CODE_GBK).append(CRLF);
 		// 读取正文长度，必填
 		headInfo.append("Content-Length:").append(len).append(CRLF);
 		headInfo.append(CRLF);// 添加空行

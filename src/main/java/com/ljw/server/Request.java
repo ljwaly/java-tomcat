@@ -43,6 +43,9 @@ public class Request {
 		try {
 			byte[] data = new byte[20480];
 			int len = is.read(data);
+			if (len <1) {
+				return ;
+			}
 			requestInfo = new String(data, 0, len);
 			parseRequestInfo();
 		} catch (IOException e) {
@@ -136,7 +139,7 @@ public class Request {
 				keyValues[1] = null;
 			}
 			String key = keyValues[0].trim();
-			String value = keyValues[1] == null ? "" : decode(keyValues[1].trim(), ServerUtil._CODE);
+			String value = keyValues[1] == null ? "" : decode(keyValues[1].trim(), ServerUtil.CODE_UTF_8);
 			if (!map.containsKey(key)) {
 				map.put(key, new ArrayList<String>());
 			}
@@ -191,5 +194,6 @@ public class Request {
 		this.url = url;
 	}
 
-	
+
+
 }

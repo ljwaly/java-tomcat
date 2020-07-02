@@ -1,7 +1,11 @@
-package com.ljw.server;
+package com.ljw.server.controller;
 
-public class Servlet {
+import com.ljw.server.Request;
+import com.ljw.server.Response;
 
+public class XmlServlet implements BaseServlet{
+
+	@Override
 	public void doGet(Request request, Response response) {
 
 		// 获取参数
@@ -22,12 +26,9 @@ public class Servlet {
 
 	}
 
+	@Override
 	public void doPost(Request request, Response response) {
 		doGet(request, response);
 	}
 
-	public void service(Request request, Response response) {
-		doGet(request, response);
-
-	}
 }
